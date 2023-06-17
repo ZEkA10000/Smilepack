@@ -74,16 +74,16 @@
 		$(".fr-btn-grp")[2].innerHTML += _pluggin_trigger
 
         $("#moreEmotes")[0].addEventListener("click", ()=> {
-            if ($("#smile_list")[0].style.height == $(".siropuChatUsers")[0].clientHeight - 70  + "px") {
+            if ($("#smile_list")[0].style.height == $(".siropuChatUsers")[1].clientHeight - 70  + "px") {
                 _close_emote_menu()
             } else {
                 $("#_extra_smile_widget")[0].style.visibility = "visible"
                 $("#_extra_smile_widget")[0].style.opacity = 1
 
                 window.setTimeout(() => {
-                    $("#smile_categories")[0].style.height = $(".siropuChatUsers")[0].clientHeight - 38 + "px"
+                    $("#smile_categories")[0].style.height = $(".siropuChatUsers")[1].clientHeight - 38 + "px"
                     $("#searcher_container")[0].style.height = "32px"
-                    $("#smile_list")[0].style.height = $(".siropuChatUsers")[0].clientHeight - 70  + "px"
+                    $("#smile_list")[0].style.height = $(".siropuChatUsers")[1].clientHeight - 70  + "px"
                 }, 300)
             }
 
@@ -146,7 +146,7 @@
 			</tr>
 		</table>`
 		$("#siropuChatTabs")[0].appendChild(_smile_menu)
-$("#close_button")[0].addEventListener("click", _close_emote_menu)
+		$("#close_button")[0].addEventListener("click", _close_emote_menu)
 
 let _b_names = ["banana", "mlem", "banana Remastered", "boop", "hugs?", "Mlems you", "Hugs you", "Kiss you", "I'am nervous", "Enigan Approved"]
 let _b_links = ["https://files.everypony.ru/smiles/ca/10/481ded.png", "https://cdn.discordapp.com/emojis/634903117724385282.gif?size=48",
