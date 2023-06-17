@@ -11,6 +11,9 @@
 
 (function() {
     'use strict';
+	
+	var _is_mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent);
+	
     var script = document.createElement("style")
     script.innerHTML = `#siropuChatContent, .uix_sidebarNav { height:530px !important }`
     document.body.appendChild(script)
@@ -74,16 +77,17 @@
 		$(".fr-btn-grp")[2].innerHTML += _pluggin_trigger
 
         $("#moreEmotes")[0].addEventListener("click", ()=> {
-            if ($("#smile_list")[0].style.height == $(".siropuChatUsers")[1].clientHeight - 70  + "px") {
+			let _height = _is_mobile ? 500 : $(".siropuChatUsers")[1].clientHeight - 38
+            if ($("#smile_list")[0].style.height == _height - 32  + "px") {
                 _close_emote_menu()
             } else {
                 $("#_extra_smile_widget")[0].style.visibility = "visible"
                 $("#_extra_smile_widget")[0].style.opacity = 1
 
                 window.setTimeout(() => {
-                    $("#smile_categories")[0].style.height = $(".siropuChatUsers")[1].clientHeight - 38 + "px"
+                    $("#smile_categories")[0].style.height = _height + "px"
                     $("#searcher_container")[0].style.height = "32px"
-                    $("#smile_list")[0].style.height = $(".siropuChatUsers")[1].clientHeight - 70  + "px"
+                    $("#smile_list")[0].style.height = _height - 32  + "px"
                 }, 300)
             }
 
