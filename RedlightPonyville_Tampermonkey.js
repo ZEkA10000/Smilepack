@@ -151,7 +151,7 @@
 				<td rowspan="2"><div id="smile_categories" style="overflow:hidden;transition:0.5s; border: 1px solid rgba(255,255,255,0.12);background:#2B2B2B; height:0px"></div></td>
 				<td colspan="2" style="border: 1px solid rgba(255,255,255,0.12);background:#2B2B2B;">
 					<div style="transition:0.5s; height:0px; overflow:hidden" id="searcher_container">
-						<input style="cursor:url(https://cdn.discordapp.com/attachments/292754824221687818/1119377675476279366/magnifying_glass-0.png) 8 8, pointer; width:432px; transition:0.5s; margin:5px 8px; background:#222; color:white; border:none; border-bottom:1px solid rgba(255,255,255,0.12)" type="text" id="z_smile_searcher">
+						<input style="cursor:url(https://cdn.discordapp.com/attachments/292754824221687818/1119378681337483274/magnifyingGlass.png) 8 8, pointer; width:432px; transition:0.5s; margin:5px 8px; background:#222; color:white; border:none; border-bottom:1px solid rgba(255,255,255,0.12)" type="text" id="z_smile_searcher">
 					</div>
 					<div id="smile_list" style="overflow:hidden; transition:0.5s; border: 1px solid rgba(255,255,255,0.12);background:#2B2B2B; height:0px"></div>
 				</td>
