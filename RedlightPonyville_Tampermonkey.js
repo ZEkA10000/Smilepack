@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         New Userscript
+// @name         redlightponyville smile plugin
 // @namespace    http://tampermonkey.net/
-// @version      0.2
-// @description  try to take over the world!
-// @author       You
+// @version      0.2.1
+// @description  Make your chatting better!
+// @author       Enigan aka ZEkA10000
 // @match        https://www.redlightponyville.com/forums/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=redlightponyville.com
 // @grant        none
