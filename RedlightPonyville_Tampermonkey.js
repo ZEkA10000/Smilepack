@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         redlightponyville smile plugin
 // @namespace    http://tampermonkey.net/
-// @version      0.2.1
+// @version      0.3
 // @description  Make your chatting better!
 // @author       Enigan aka ZEkA10000
 // @match        https://www.redlightponyville.com/forums/*
@@ -82,14 +82,14 @@
 		$(".fr-btn-grp")[2].innerHTML += _pluggin_trigger
 
         $("#moreEmotes")[0].addEventListener("click", ()=> {
-			let _height = _is_mobile ? 500 : $(".siropuChatUsers")[1].clientHeight - 38
+			let _height = _is_mobile ? 500 : $(".siropuChatRoom")[1].clientHeight - 38
             if ($("#smile_list")[0].style.height == _height - 32  + "px") {
                 _close_emote_menu()
             } else {
                 $("#_extra_smile_widget")[0].style.visibility = "visible"
                 $("#_extra_smile_widget")[0].style.opacity = 1
 
-                window.setTimeout(() => {
+                setTimeout(() => {
                     $("#smile_categories")[0].style.height = _height + "px"
                     $("#searcher_container")[0].style.height = "32px"
                     $("#smile_list")[0].style.height = _height - 32  + "px"
@@ -137,8 +137,8 @@
         _smile_menu.innerHTML = `
 		<table cellspacing="0" cellpadding="0">
 			<tr>
-				<td style="width:32px; height:32px; padding: 1px;text-align: center;font-size: 20px;" class="block-header"><i class="far fa-smile" aria-hidden="true"></i></td>
-				<td style="width:416px; padding: 1px 10px; font-weight:bold" class="block-header">Wellcome to extra smile plugin</td>
+				<td style="width:40px; height:32px; padding: 1px;text-align: center;font-size: 20px;" class="block-header"><i class="far fa-smile" aria-hidden="true"></i></td>
+				<td style="width:300px; padding: 1px 10px; font-weight:bold" class="block-header">Wellcome to extra smile plugin</td>
 				<td class="block-header" id="close_plugin_window" style="width:32px; padding: 6px;">
 					<svg id="close_button" style="display:block" style="width:32px;" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
 						<rect x="1" width="30" height="30" rx="8" fill="#F33"/>
@@ -151,7 +151,7 @@
 				<td rowspan="2"><div id="smile_categories" style="overflow:hidden;transition:0.5s; border: 1px solid rgba(255,255,255,0.12);background:#2B2B2B; height:0px"></div></td>
 				<td colspan="2" style="border: 1px solid rgba(255,255,255,0.12);background:#2B2B2B;">
 					<div style="transition:0.5s; height:0px; overflow:hidden" id="searcher_container">
-						<input style="cursor:url(https://cdn.discordapp.com/attachments/292754824221687818/1119378681337483274/magnifyingGlass.png) 8 8, pointer; width:432px; transition:0.5s; margin:5px 8px; background:#222; color:white; border:none; border-bottom:1px solid rgba(255,255,255,0.12)" type="text" id="z_smile_searcher">
+						<input style="cursor:url(https://cdn.discordapp.com/attachments/292754824221687818/1119378681337483274/magnifyingGlass.png) 8 8, pointer; width:300px; transition:0.5s; margin:5px 8px; background:#222; color:white; border:none; border-bottom:1px solid rgba(255,255,255,0.12)" type="text" id="z_smile_searcher">
 					</div>
 					<div id="smile_list" style="overflow:hidden; transition:0.5s; border: 1px solid rgba(255,255,255,0.12);background:#2B2B2B; height:0px"></div>
 				</td>
