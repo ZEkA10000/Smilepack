@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         New Userscript
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  try to take over the world!
 // @author       You
 // @match        https://www.redlightponyville.com/forums/*
@@ -9,7 +9,12 @@
 // @grant        none
 // ==/UserScript==
 
+
 (function() {
+	// <fieldset>
+	//	<legend> Name of groupbox</legend>
+	//  ..tags..
+	// </fieldset>
     'use strict';
 	
 	var _is_mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent);
@@ -90,8 +95,8 @@
                     $("#smile_list")[0].style.height = _height - 32  + "px"
                 }, 300)
             }
-
         })
+		
 
         let _close_emote_menu = () => {
             $("#smile_categories")[0].style.height = 0
@@ -100,7 +105,10 @@
             window.setTimeout(()=>{$("#_extra_smile_widget")[0].style.opacity = 0}, 500)
             window.setTimeout(()=>{$("#_extra_smile_widget")[0].style.visibility = "hidden"}, 1000)
         }
-
+		
+		
+		$("#siropuChatEditor .button")[0].addEventListener("click", _close_emote_menu)
+		
         let make_button = (_caption, _link) => {
             let _emoji = document.createElement("img")
             _emoji.title = _caption
@@ -164,7 +172,7 @@ for (var i = 0; i < _b_names.length; i++) {
     make_button(_b_names[i], _b_links[i])
 }
 
-console.log("script loaded!")
+console.log("Emoji plugin script loaded!")
 }, 1500)
 
 
