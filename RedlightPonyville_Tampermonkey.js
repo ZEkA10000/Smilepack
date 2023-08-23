@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         redlightponyville smile plugin
 // @namespace    http://tampermonkey.net/
-// @version      0.3.5
-// @description  Make your chatting better!
+// @version      0.3.6
+// @description  Make your chatting better! (Recommend screen size: 1920x1080 (Full HD))
 // @author       Enigan aka ZEkA10000
 // @match        https://www.redlightponyville.com/forums/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=redlightponyville.com
