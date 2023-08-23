@@ -1,7 +1,8 @@
+
 // ==UserScript==
 // @name         redlightponyville smile plugin
 // @namespace    http://tampermonkey.net/
-// @version      0.3.1
+// @version      0.3.2
 // @description  Make your chatting better!
 // @author       Enigan aka ZEkA10000
 // @match        https://www.redlightponyville.com/forums/*
@@ -58,11 +59,11 @@
     #MessageContextMenu a[disabled] { color: #333; text-decoration:line-through }
     #MessageContextMenu a:hover { background:#373A40 }
     #reactContextMenuLike { color:indianred }
-    #reactContextMenuQuote, #rMM3HajE69NqCYKEopPpk4x2PWxn4bA1ze { color:#84653d }
+    #reactContextMenuQuote, #reactContextMenuCompactQuote { color:#84653d }
     #reactContextMenuLink { color:#408e7d }
     #reactContextMenuEdit { color:#15873F }
     #reactContextMenuReport { color:#dcda54 }
-    #rMM3HajE69NqCYKEopPpk4x2PWxn4bA1ze, #reactContextMenuWhisper { color: #77e }
+    #reactContextMenuCompactQuote, #reactContextMenuWhisper { color: #77e }
     #MessageContextMenu { position: fixed; background-color: #2B2B2B;  font-size: 14px; font-weight:bold; border-right: 2px #222 solid; border-left: 2px #454545 solid; z-index: 3; transition: 0.1s; overflow: hidden; transition-property:height, padding, border; }
     `
     document.body.appendChild(script)
@@ -78,9 +79,9 @@
     _MessageActionMenu.innerHTML = `
         <a id="reactContextMenuLike" data-xf-click="siropu-chat-like"><i class="fa--xf far fa-thumbs-up" aria-hidden="true"></i>&nbsp;Like</a>
         <a id="reactContextMenuQuote" data-xf-click="siropu-chat-quote"><i class="fa--xf far fa-quote-right" aria-hidden="true"></i>&nbsp;Quote</a>
-        <a id="rMM3HajE69NqCYKEopPpk4x2PWxn4bA1ze" data-xf-click="siropu-chat-quote"><i class="fa--xf far fa-quote-right" aria-hidden="true"></i>&nbsp;Compact quote</a>
+        <a id="reactContextMenuCompactQuote" data-xf-click="siropu-chat-quote"><i class="fa--xf far fa-quote-right" aria-hidden="true"></i>&nbsp;Compact quote</a>
         <a id="reactContextMenuWhisper" data-xf-click="siropu-chat-quote"><i class="fa--xf far fa-quote-right" aria-hidden="true"></i>&nbsp;Whisper</a>
-        <a id="rMM3HajE69NqCYKEopPpk4x2PWxn4bA1ze" data-xf-click="siropu-chat-quote"><i class="fa--xf far fa-quote-right" aria-hidden="true"></i>&nbsp;Whisper + Compact quote</a>
+        <a id="reactContextMenuCompactQuote" data-xf-click="siropu-chat-quote"><i class="fa--xf far fa-quote-right" aria-hidden="true"></i>&nbsp;Whisper + Compact quote</a>
         <a id="reactContextMenuLink" data-xf-click="overlay" data-cache="false"><i class="fa--xf far fa-link" aria-hidden="true"></i>&nbsp;Link</a>
         <a id="reactContextMenuReport" data-xf-click="overlay" data-cache="false"><i class="fa--xf far fa-flag" aria-hidden="true"></i>&nbsp;Report</a>
     `
@@ -504,7 +505,7 @@
             return { name: _name, color: _nickname_color }
         }
 
-        $("#rMM3HajE69NqCYKEopPpk4x2PWxn4bA1ze")[0].onclick = function(_event) {
+        $("#reactContextMenuCompactQuote")[0].onclick = function(_event) {
             let _target = $("li[data-id=" + _event.target.parentNode.getAttribute("data-id") + "]")[0]
             let _user_info = get_username(_target)
             let _nickname_color = _user_info.color
@@ -537,7 +538,7 @@
             let _name = _user_info.name
             let _text = "/whisper ["+_name+"] "
             insert_text(_text)
-            if (add_quote) $("#rMM3HajE69NqCYKEopPpk4x2PWxn4bA1ze")[0].click()
+            if (add_quote) $("#reactContextMenuCompactQuote")[0].click()
         }
 
         document.body.addEventListener("click", function(_event) {
@@ -612,7 +613,6 @@
                     switch (_react.title) {
                         case "Like":
                             $("#MessageContextMenu a")[el_id].innerHTML = "<i class=\"fa--xf far fa-thumbs-up\" aria-hidden=\"true\"></i>&nbsp;Like"
-							$("#MessageContextMenu a")[el_id].id = "reactContextMenuLike"
                             $("#MessageContextMenu a")[el_id].removeAttribute("disabled")
                             $("#MessageContextMenu a")[el_id].onclick = function() { _target.getElementsByClassName("siropuChatMessageActions")[0].getElementsByTagName("a")[0].click(); switchContext(false)}
                             break;
@@ -634,7 +634,7 @@
                             $("#MessageContextMenu a")[3].removeAttribute("disabled")
                             $("#MessageContextMenu a")[4].removeAttribute("disabled")
                             $("#reactContextMenuWhisper")[0].onclick = function(_event) { insert_whisper(_event, false) }
-                            $("#rMM3HajE69NqCYKEopPpk4x2PWxn4bA1ze")[0].onclick = function(_event) { insert_whisper(_event, true) }
+                            $("#reactContextMenuCompactQuote")[0].onclick = function(_event) { insert_whisper(_event, true) }
                             break;
                         case "Link":
                             $("#MessageContextMenu a")[el_id].setAttribute("href", _baseUri + "/link")
