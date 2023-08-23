@@ -612,6 +612,7 @@
                     switch (_react.title) {
                         case "Like":
                             $("#MessageContextMenu a")[el_id].innerHTML = "<i class=\"fa--xf far fa-thumbs-up\" aria-hidden=\"true\"></i>&nbsp;Like"
+							$("#MessageContextMenu a")[el_id].id = "reactContextMenuLike"
                             $("#MessageContextMenu a")[el_id].removeAttribute("disabled")
                             $("#MessageContextMenu a")[el_id].onclick = function() { _target.getElementsByClassName("siropuChatMessageActions")[0].getElementsByTagName("a")[0].click(); switchContext(false)}
                             break;
@@ -625,6 +626,8 @@
                             $("#MessageContextMenu a")[el_id].innerHTML = "<i class=\"fa--xf far fa-edit\" aria-hidden=\"true\"></i>&nbsp;Edit"
 							$("#MessageContextMenu a")[el_id].id = "reactContextMenuEdit"
                             $("#MessageContextMenu a")[el_id].removeAttribute("disabled")
+							$("reactContextMenuCompactWhisperQuote")[0].addAttribute("disabled", "")
+							$("reactContextMenuWhisper")[0].addAttribute("disabled", "")
                             $("#MessageContextMenu a")[el_id].onclick = function() { _target.getElementsByClassName("siropuChatMessageActions")[0].getElementsByTagName("a")[2].click(); switchContext(false)}
                             break;
                         case "Quote":
