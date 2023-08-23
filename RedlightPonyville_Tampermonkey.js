@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         redlightponyville smile plugin
 // @namespace    http://tampermonkey.net/
-// @version      0.3.2
+// @version      0.3.3
 // @description  Make your chatting better!
 // @author       Enigan aka ZEkA10000
 // @match        https://www.redlightponyville.com/forums/*
@@ -63,7 +63,7 @@
     #reactContextMenuLink { color:#408e7d }
     #reactContextMenuEdit { color:#15873F }
     #reactContextMenuReport { color:#dcda54 }
-    #reactContextMenuCompactQuote, #reactContextMenuWhisper { color: #77e }
+    #reactContextMenuCompactWhisperQuote, #reactContextMenuWhisper { color: #77e }
     #MessageContextMenu { position: fixed; background-color: #2B2B2B;  font-size: 14px; font-weight:bold; border-right: 2px #222 solid; border-left: 2px #454545 solid; z-index: 3; transition: 0.1s; overflow: hidden; transition-property:height, padding, border; }
     `
     document.body.appendChild(script)
@@ -81,7 +81,7 @@
         <a id="reactContextMenuQuote" data-xf-click="siropu-chat-quote"><i class="fa--xf far fa-quote-right" aria-hidden="true"></i>&nbsp;Quote</a>
         <a id="reactContextMenuCompactQuote" data-xf-click="siropu-chat-quote"><i class="fa--xf far fa-quote-right" aria-hidden="true"></i>&nbsp;Compact quote</a>
         <a id="reactContextMenuWhisper" data-xf-click="siropu-chat-quote"><i class="fa--xf far fa-quote-right" aria-hidden="true"></i>&nbsp;Whisper</a>
-        <a id="reactContextMenuCompactQuote" data-xf-click="siropu-chat-quote"><i class="fa--xf far fa-quote-right" aria-hidden="true"></i>&nbsp;Whisper + Compact quote</a>
+        <a id="reactContextMenuCompactWhisperQuote" data-xf-click="siropu-chat-quote"><i class="fa--xf far fa-quote-right" aria-hidden="true"></i>&nbsp;Whisper + Compact quote</a>
         <a id="reactContextMenuLink" data-xf-click="overlay" data-cache="false"><i class="fa--xf far fa-link" aria-hidden="true"></i>&nbsp;Link</a>
         <a id="reactContextMenuReport" data-xf-click="overlay" data-cache="false"><i class="fa--xf far fa-flag" aria-hidden="true"></i>&nbsp;Report</a>
     `
@@ -505,7 +505,7 @@
             return { name: _name, color: _nickname_color }
         }
 
-        $("#reactContextMenuCompactQuote")[0].onclick = function(_event) {
+        $("#reactContextMenuQuote")[0].onclick = function(_event) {
             let _target = $("li[data-id=" + _event.target.parentNode.getAttribute("data-id") + "]")[0]
             let _user_info = get_username(_target)
             let _nickname_color = _user_info.color
@@ -622,7 +622,7 @@
                             $("#MessageContextMenu a")[el_id].removeAttribute("disabled")
                             $("#MessageContextMenu a")[el_id].onclick = function() { _target.getElementsByClassName("siropuChatMessageActions")[0].getElementsByTagName("a")[0].click(); switchContext(false)}
                             break;
-                        case "Unlike":
+                        case "Edit":
                             $("#MessageContextMenu a")[el_id].innerHTML = "<i class=\"fa--xf far fa-edit\" aria-hidden=\"true\"></i>&nbsp;Edit"
 							$("#MessageContextMenu a")[el_id].id = "reactContextMenuEdit"
                             $("#MessageContextMenu a")[el_id].removeAttribute("disabled")
@@ -634,7 +634,7 @@
                             $("#MessageContextMenu a")[3].removeAttribute("disabled")
                             $("#MessageContextMenu a")[4].removeAttribute("disabled")
                             $("#reactContextMenuWhisper")[0].onclick = function(_event) { insert_whisper(_event, false) }
-                            $("#reactContextMenuCompactQuote")[0].onclick = function(_event) { insert_whisper(_event, true) }
+                            $("#reactContextMenuCompactWhisperQuote")[0].onclick = function(_event) { insert_whisper(_event, true) }
                             break;
                         case "Link":
                             $("#MessageContextMenu a")[el_id].setAttribute("href", _baseUri + "/link")
