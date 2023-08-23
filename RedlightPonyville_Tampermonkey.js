@@ -1,4 +1,3 @@
-
 // ==UserScript==
 // @name         redlightponyville smile plugin
 // @namespace    http://tampermonkey.net/
