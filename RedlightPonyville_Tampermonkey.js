@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         redlightponyville smile plugin
 // @namespace    http://tampermonkey.net/
-// @version      0.3.4
+// @version      0.3.5
 // @description  Make your chatting better!
 // @author       Enigan aka ZEkA10000
 // @match        https://www.redlightponyville.com/forums/*
@@ -625,7 +625,7 @@
                             $("#MessageContextMenu a")[el_id].innerHTML = "<i class=\"fa--xf far fa-edit\" aria-hidden=\"true\"></i>&nbsp;Edit"
 							$("#MessageContextMenu a")[el_id].id = "reactContextMenuEdit"
                             $("#MessageContextMenu a")[el_id].removeAttribute("disabled")
-                            $("#MessageContextMenu a")[el_id].onclick = function() { _target.getElementsByClassName("siropuChatMessageActions")[0].getElementsByTagName("a")[0].click(); switchContext(false)}
+                            $("#MessageContextMenu a")[el_id].onclick = function() { _target.getElementsByClassName("siropuChatMessageActions")[0].getElementsByTagName("a")[2].click(); switchContext(false)}
                             break;
                         case "Quote":
                             $("#MessageContextMenu a")[el_id].setAttribute("href", _baseUri + "/quote")
