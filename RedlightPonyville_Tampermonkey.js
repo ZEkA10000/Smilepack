@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         redlightponyville smile plugin
 // @namespace    http://tampermonkey.net/
-// @version      0.3.3
+// @version      0.3.4
 // @description  Make your chatting better!
 // @author       Enigan aka ZEkA10000
 // @match        https://www.redlightponyville.com/forums/*
@@ -505,7 +505,7 @@
             return { name: _name, color: _nickname_color }
         }
 
-        $("#reactContextMenuQuote")[0].onclick = function(_event) {
+        $("#reactContextMenuCompactQuote")[0].onclick = function(_event) {
             let _target = $("li[data-id=" + _event.target.parentNode.getAttribute("data-id") + "]")[0]
             let _user_info = get_username(_target)
             let _nickname_color = _user_info.color
