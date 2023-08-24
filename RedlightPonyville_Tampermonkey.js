@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         redlightponyville smile plugin
 // @namespace    http://tampermonkey.net/
-// @version      0.3.6
+// @version      0.3.7
 // @description  Make your chatting better! (Recommend screen size: 1920x1080 (Full HD))
 // @author       Enigan aka ZEkA10000
 // @match        https://www.redlightponyville.com/forums/*
@@ -72,6 +72,10 @@
     _MessageActionMenu.id = "MessageContextMenu"
     _MessageActionMenu.style.height = "0px"
     _MessageActionMenu.style.padding = "0px 10px"
+	if (_is_mobile) {
+		_MessageActionMenu.style.width = "100%"
+		_MessageActionMenu.style.fontSize = "24px"
+	}
     _MessageActionMenu.style.borderTop = "0px #454545 solid"
     _MessageActionMenu.style.borderBottom = "0px #222 solid"
 
@@ -100,6 +104,9 @@
 
         _target.style.borderTop = (_show ? "2px" : "0px") + " #454545 solid"
         _target.style.borderBottom = (_show ? "2px" : "0px") + " #222 solid"
+		if (_is_mobile) {
+			_target.style.top = (_show ? _target.clientHeight : window.innerHeight) + "px"
+		}
     }
 
     setTimeout(() => {
@@ -118,12 +125,11 @@
 			$(".sidePanel__tabPanel")[0].innerHTML += `
 				<div class="offCanvasMenu-linkHolder ">
 					<div class="p-navEl__inner u-ripple rippleButton">
-						<p class="p-navEl__inner u-ripple rippleButton" style="height:20px; padding:0 16px; text-decoration:underline; color:yellowgreen">▼ Plugin settings ▼</p>
+						<p class="p-navEl__inner u-ripple rippleButton" style="height:20px; padding:0 16px; text-decoration:underline; color:yellowgreen; font-size:16px; margin:0; margin-top:8px">▼ Plugin settings ▼</p>
 					</div>
 				</div>
 				<div class="offCanvasMenu-linkHolder ">
-					<div class="p-navEl__inner u-ripple rippleButton">
-						<a class="p-navEl__inner u-ripple rippleButton" id="z_plugin_nav_menu" style="height:42px"></a>
+					<div class="p-navEl__inner u-ripple rippleButton" id="z_plugin_nav_menu" style="font-size:14px">
 					</div>
 				</div>
 			`
@@ -602,8 +608,10 @@
             console.log(_target);
             if (_target.tagName == "LI" && !_target.parentElement.className.includes("siropuChatUsers") && !_target.parentElement.className.includes("uix_sidebarNavList")) {
                 $("#MessageContextMenu")[0].setAttribute("data-id", _target.getAttribute("data-id"))
-                $("#MessageContextMenu")[0].style.left = event.clientX-5+"px"
-                $("#MessageContextMenu")[0].style.top = event.clientY-5+"px"
+                if (!_is_mobile) {
+					$("#MessageContextMenu")[0].style.left = event.clientX-5+"px"
+					$("#MessageContextMenu")[0].style.top = event.clientY-5+"px"
+				}
                 switchContext(true)
                 let _baseUri = "/forums/chat/message/" + _target.getAttribute("data-id")
 
