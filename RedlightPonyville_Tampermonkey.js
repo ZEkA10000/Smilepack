@@ -63,7 +63,7 @@
     #reactContextMenuEdit { color:#15873F }
     #reactContextMenuReport { color:#dcda54 }
     #reactContextMenuCompactWhisperQuote, #reactContextMenuWhisper { color: #77e }
-    #MessageContextMenu { position: fixed; background-color: #2B2B2B;  font-size: 14px; font-weight:bold; border-right: 2px #222 solid; border-left: 2px #454545 solid; z-index: 3; transition: 0.1s; overflow: hidden; transition-property:height, padding, border; }
+    #MessageContextMenu { position: fixed; background-color: #1B1B1Bf8;  font-size: 14px; font-weight:bold; border-right: 2px #222 solid; border-left: 2px #454545 solid; z-index: 3; transition: 0.1s; overflow: hidden; transition-property:height, padding, border; }
     `
     document.body.appendChild(script)
 
@@ -75,6 +75,7 @@
 	if (_is_mobile) {
 		_MessageActionMenu.style.width = "100%"
 		_MessageActionMenu.style.fontSize = "24px"
+		_MessageActionMenu.style.transitionProperty = "height, padding, border, top"
 	}
     _MessageActionMenu.style.borderTop = "0px #454545 solid"
     _MessageActionMenu.style.borderBottom = "0px #222 solid"
@@ -105,7 +106,7 @@
         _target.style.borderTop = (_show ? "2px" : "0px") + " #454545 solid"
         _target.style.borderBottom = (_show ? "2px" : "0px") + " #222 solid"
 		if (_is_mobile) {
-			_target.style.top = (_show ? _target.clientHeight : window.innerHeight) + "px"
+			_target.style.top = (_show ? window.innerHeight-_target.clientHeight : window.innerHeight) + "px"
 		}
     }
 
