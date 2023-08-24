@@ -15,7 +15,6 @@
 
     var _is_mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent);
 
-
     var script = document.createElement("style")
     script.innerHTML = `
     /*#siropuChatContent, .uix_sidebarNav { height:530px !important }*/
@@ -28,7 +27,7 @@
     .p-pageWrapper { margin-top:0 }
     .u-dt[title] { background-color: #0092; text-decoration: underline dotted cornflowerblue; }
     .siropuChatMessageLikes{ color:indianred; display: inline-block }
-    .siropuChatMessageLikes::after { content: "Y"; display: inline-block;  white-space: pre; font-family:Webdings; font-size:18px; line-height: 16px; }
+    .siropuChatMessageLikes::after { content: "❤"; display: inline-block;  white-space: pre; font-size:16px; line-height: 16px; }
     *[data-user-id="13094"][itemprop="name"]::before { content: url( "https://raw.githubusercontent.com/ZEkA10000/Smilepack/main/icons/dev.png" ) }
     #z_bot_list fieldset { border:none; border-top:1px white solid; font-weight: bold}
 	#z_bot_list {padding-top:4px}
@@ -49,6 +48,7 @@
     }
 
     .emoji_in_menu { display:inline-block; height:40px; margin:2px }
+	.emoji_in_mmenu { display:inline-block; height:60px; margin:2px }
     /*.siropuChatDateTime { display:inline !important }
     .siropuChatMessageActions { display:none !important }*/
 
@@ -86,10 +86,12 @@
     `
     document.body.appendChild(_MessageActionMenu)
 
-    window.setInterval(() => {
-        document.getElementsByClassName("uix_pageWrapper--fixed")[0].scrollTo(0, 0);
-        document.getElementsByClassName("parallax-mirror")[0].height = "200px";
-    }, 10000)
+	if (!_is_mobile) {
+		window.setInterval(() => {
+			document.getElementsByClassName("uix_pageWrapper--fixed")[0].scrollTo(0, 0);
+			document.getElementsByClassName("parallax-mirror")[0].height = "200px";
+		}, 10000)
+	}
 
     function switchContext(_show=true) {
         let _target = $("#MessageContextMenu")[0]
@@ -112,13 +114,27 @@
         // =============================================================================================================
         // FOOTER TOGGLER
         // v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v
-
-        $(".uix_sidebar--scroller")[0].innerHTML +=`
-            <ul class="uix_sidebarNavList">
-			    <li> <div class="p-navEl__inner u-ripple rippleButton" style="height:20px; padding:0 16px; text-decoration:underline; color:yellowgreen">▼ Plugin settings ▼</div> </li>
-                <li> <div class="p-navEl__inner u-ripple rippleButton" id="z_plugin_nav_menu" style="height:42px"></div> </li>
-    	    </ul>
-        `
+		if (_is_mobile) {
+			$(".sidePanel__tabPanel")[0].innerHTML += `
+				<div class="offCanvasMenu-linkHolder ">
+					<div class="p-navEl__inner u-ripple rippleButton">
+						<p class="p-navEl__inner u-ripple rippleButton" style="height:20px; padding:0 16px; text-decoration:underline; color:yellowgreen">▼ Plugin settings ▼</p>
+					</div>
+				</div>
+				<div class="offCanvasMenu-linkHolder ">
+					<div class="p-navEl__inner u-ripple rippleButton">
+						<a class="p-navEl__inner u-ripple rippleButton" id="z_plugin_nav_menu" style="height:42px"></a>
+					</div>
+				</div>
+			`
+		} else {
+			$(".uix_sidebar--scroller")[0].innerHTML +=`
+				<ul class="uix_sidebarNavList">
+					<li> <div class="p-navEl__inner u-ripple rippleButton" style="height:20px; padding:0 16px; text-decoration:underline; color:yellowgreen">▼ Plugin settings ▼</div> </li>
+					<li> <div class="p-navEl__inner u-ripple rippleButton" id="z_plugin_nav_menu" style="height:42px"></div> </li>
+				</ul>
+			`
+		}
         var button = document.createElement("a")
         button.setAttribute("class", "p-navEl-link")
         button.setAttribute("id", "footerToggler")
@@ -204,7 +220,7 @@
             _emoji.title = _caption
             _emoji.src   = _link
 
-            _emoji.setAttribute("class", "emoji_in_menu")
+            _emoji.setAttribute("class", "emoji_in_"+(_is_mobile ? "m" : "")+"menu")
             _emoji.onclick = () => {insert_text("<img alt=\""+ _caption + "\" src=\"" + _link + "\" class=\"fr-fic fr-dii fr-draggable\" style=\"height:48px\">")}
             $("#smile_list")[0].appendChild(_emoji)
         }
@@ -213,7 +229,7 @@
         let _smile_menu = document.createElement("div")
         _smile_menu.id = "_extra_smile_widget"
         _smile_menu.style.top = "-34px"
-        _smile_menu.style.left = $("#moreEmotes")[0].offsetLeft + "px"
+        _smile_menu.style.left = _is_mobile ? $("#moreEmotes")[0].offsetLeft + "px" : 0
 
         _smile_menu.innerHTML = `
 		<table cellspacing="0" cellpadding="0">
@@ -296,7 +312,7 @@
         let _bot_menu = document.createElement("div")
         _bot_menu.id = "_bot_list_widget"
         _bot_menu.style.top = "-34px"
-        _bot_menu.style.left = $("#z_put_bot")[0].offsetLeft + "px"
+        _bot_menu.style.left = _is_mobile ? $("#z_put_bot")[0].offsetLeft + "px" : 0
 
         _bot_menu.innerHTML = `
 		<table cellspacing="0" cellpadding="0">
