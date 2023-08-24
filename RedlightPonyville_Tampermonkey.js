@@ -130,7 +130,7 @@
 					</div>
 				</div>
 				<div class="offCanvasMenu-linkHolder ">
-					<div class="p-navEl__inner u-ripple rippleButton" id="z_plugin_nav_menu" style="font-size:14px">
+					<div class="p-navEl__inner u-ripple rippleButton" id="z_plugin_nav_menu" style="font-size:14px; padding:8px 16px">
 					</div>
 				</div>
 			`
