@@ -39,6 +39,7 @@
        66% { color: #00F }
        83% { color: #F0F }
     }
+	#_extra_smile_widget table {border-collapse: collapse}
     *[data-user-id="13094"][itemprop="name"] { transition: 1s linear; animation: z_owner_color 6s infinite }
 	#z_bot_list p {margin: 0; line-height:16px;font-weight: normal;}
 	#z_bot_list img {margin-right: 4px;}
@@ -256,6 +257,7 @@
 				<td colspan="2" style="border: 1px solid rgba(255,255,255,0.12);background:#2B2B2B;">
 					<div style="transition:0.5s; height:0px; overflow:hidden" id="searcher_container">
 						<input style="cursor:url(https://cdn.discordapp.com/attachments/292754824221687818/1119378681337483274/magnifyingGlass.png) 8 8, pointer; width:300px; transition:0.5s; margin:5px 8px; background:#222; color:white; border:none; border-bottom:1px solid rgba(255,255,255,0.12)" type="text" id="z_smile_searcher">
+						<img src="https://raw.githubusercontent.com/ZEkA10000/Smilepack/main/icons/gear.png" />
 					</div>
 					<div id="smile_list" style="overflow-y: scroll; transition:0.5s; border: 1px solid rgba(255,255,255,0.12);background:#2B2B2B; height:0px"></div>
 				</td>
@@ -276,7 +278,8 @@
             ["boop",                      "https://cdn.discordapp.com/emojis/531964027799207946.webp"],
             ["boops",                     "https://cdn.discordapp.com/emojis/1119601397453836459.gif"],
             ["boops intensive!",          "https://cdn.discordapp.com/emojis/1094839900928479272.gif"],
-            ["boop (Enya)",               "https://media.discordapp.net/attachments/292754824221687818/1134040394162786384/EnyaBoop_ORAROAROA_slow.gif"],
+			["nuzzle boop",               "https://media.discordapp.net/attachments/292754824221687818/1144668790379003935/BPM_571.png"],
+			["boop (Enya)",               "https://media.discordapp.net/attachments/292754824221687818/1134040394162786384/EnyaBoop_ORAROAROA_slow.gif"],
             ["boop (Enya)",               "https://media.discordapp.net/attachments/292754824221687818/1134040393747546152/EnyaBoop_ORAROAROA_text_slow.gif"],
             ["boop intensive (Enya)",     "https://media.discordapp.net/attachments/292754824221687818/1134040394884202626/EnyaBoop_ORAROAROA.gif"],
             ["boop intensive (Enya)",     "https://media.discordapp.net/attachments/292754824221687818/1134040394569625630/EnyaBoop_ORAROAROA_text.gif"],
@@ -469,7 +472,7 @@
                 setTimeout(() => {
                     $("#_extra_smile_widget")[0].style.top = "-334px"
                     $("#smile_categories")[0].style.height = _height + "px"
-                    $("#searcher_container")[0].style.height = "32px"
+                    $("#searcher_container")[0].style.height = "30px"
                     $("#smile_list")[0].style.height = _height - 32 + "px"
                 }, 300)
                 setTimeout(() => { _set_button_active($("#moreEmotes")[0], true) }, 600)
