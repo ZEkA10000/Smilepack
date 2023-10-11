@@ -243,7 +243,7 @@
 		<table cellspacing="0" cellpadding="0">
 			<tr>
 				<td style="width:40px; height:32px; padding: 1px;text-align: center;font-size: 20px;" class="block-header"><i class="far fa-smile" aria-hidden="true"></i></td>
-				<td style="width:300px; padding: 1px 10px; font-weight:bold" class="block-header">Wellcome to extra smile plugin</td>
+				<td style="width:340px; padding: 1px 10px; font-weight:bold" class="block-header">Wellcome to extra smile plugin</td>
 				<td class="block-header" id="close_plugin_window" style="width:32px; padding: 6px;">
 					<svg id="close_button" style="display:block" style="width:32px;" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
 						<rect x="1" width="30" height="30" rx="8" fill="#F33"/>
