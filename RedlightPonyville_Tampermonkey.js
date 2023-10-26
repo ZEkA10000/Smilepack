@@ -243,7 +243,7 @@
 		<table cellspacing="0" cellpadding="0">
 			<tr>
 				<td style="width:40px; height:32px; padding: 1px;text-align: center;font-size: 20px;" class="block-header"><i class="far fa-smile" aria-hidden="true"></i></td>
-				<td style="width:340px; padding: 1px 10px; font-weight:bold" class="block-header">Wellcome to extra smile plugin</td>
+				<td style="width:300px; padding: 1px 10px; font-weight:bold" class="block-header">Wellcome to extra smile plugin</td>
 				<td class="block-header" id="close_plugin_window" style="width:32px; padding: 6px;">
 					<svg id="close_button" style="display:block" style="width:32px;" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
 						<rect x="1" width="30" height="30" rx="8" fill="#F33"/>
@@ -508,11 +508,12 @@
             let _username = null
             let _nickname_color = null
             let _name = ""
-            if (_target.getElementsByClassName("username")[0] == undefined) {
+            if (_target.getElementsByClassName("username")[0] == undefined || _target.getElementsByClassName("username")[0].parentElement.classList.contains("bbWrapper")) {
                 try {
                     _username = _target.getElementsByTagName("b")[0].children[0] //Any bot
                     _nickname_color = getComputedStyle(_username).color
                     _name = _username.innerText
+                    console.log(_name)
                 } catch {
                     _username = _target.getElementsByClassName("siropuChatMessageContentLeft")[0].childNodes[2] //Bot bot
                     _nickname_color = "rgb(255, 255, 255)"
@@ -536,23 +537,60 @@
             let _nickname_color = _user_info.color
             let _name = _user_info.name
 
-            let _result = "[quote]<span style=\"color:#75BFFF\">Reply to </span><a href=\"http://www.redlightponyville.com/forums/chat/message/"+_event.target.parentNode.getAttribute("data-id")+"/view\" target=\"_blank\" rel=\"noopener noreferrer\"><span style=\"color:"+_nickname_color+"\"><strong>"+_name+"</strong></span></a><span style=\"color:#75BFFF\">: </span>"
-            for (var _mesElem of _target.getElementsByClassName("bbWrapper")[0].childNodes) {
-                console.log(_mesElem)
-                if (_mesElem.className == "bbCodeSpoiler") {
-                    _result += "<br>[spoiler=\"" + _mesElem.getElementsByClassName("bbCodeSpoiler-button-title")[0].innerText + "\"]<br>"
-                    _result += _mesElem.getElementsByClassName("bbCodeBlock-content")[0].innerHTML + "<br>"
-                    _result += "[/spoiler]<br>"
+            var extractSpolerContent = function(_spoiler) {
+                let spoilername = ""
+                if        (_spoiler.querySelector(".bbCodeBlock-title") != null) {
+                    spoilername = _spoiler.getElementsByClassName("bbCodeBlock-title")[0].innerText.replace(":", "")
+                } else if (_spoiler.querySelector(".bbCodeSpoiler-button-title") != null) {
+                    spoilername = _spoiler.querySelector(".bbCodeSpoiler-button-title").innerText
                 } else {
-                    if (_mesElem.nodeName == "#text") {
-                        _result += _mesElem.textContent //+ (_mesElem.nextSibling != null  && _mesElem.nextSibling.tagName == "B" ? "" : "<br>")
-                    } else {
-                        _result += _mesElem.outerHTML// + (["B", "I"].includes(_mesElem.tagName)  ? "" : "<br>")
+                    spoilername =  ""
+                }
+                _result += "<br>[spoiler=\"" + spoilername + "\"]<br>"
+                if (_spoiler.getElementsByClassName("bbCodeBlock-content")[0].querySelectorAll(".bbCodeSpoiler").length > 0) {
+                    for (var _el of _spoiler.getElementsByClassName("bbCodeBlock-content")[0].childNodes) {
+                        console.log(_el)
+                        if (_el.nodeName == "#text") {
+                            if (_el.textContent == "\n\n") continue;
+                            _result += _el.textContent
+                        } else if (_el.classList.contains("bbCodeSpoiler"))
+                            _result += "{ spoiler" + (_el.querySelector(".bbCodeSpoiler-button-title") == null ? "" : ":"+_el.querySelector(".bbCodeSpoiler-button-title").innerText) + " }"
+                        else
+                            _result += _el.outerHTML
+                        _result += "<br>"
                     }
+                } else {
+                    _result += _spoiler.getElementsByClassName("bbCodeBlock-content")[0].innerHTML + "<br>"
+                }
+                _result += "[/spoiler]<br>"
+            }
+
+            console.log("target is", _target)
+            let _result = "[quote]<span style=\"color:#75BFFF\">Reply to </span><a href=\"http://www.redlightponyville.com/forums/chat/message/"+_event.target.parentNode.getAttribute("data-id")+"/view\" target=\"_blank\" rel=\"noopener noreferrer\"><span style=\"color:"+_nickname_color+"\"><strong>"+_name+"</strong></span></a><span style=\"color:#75BFFF\">: </span>"
+            let tree = null;
+            // Let me know, your message starts from SPAN?
+            if (_target.getElementsByClassName("bbWrapper")[0].childNodes[0].nodeName == "SPAN" && _target.getElementsByClassName("bbWrapper")[0].childNodes[0].childNodes.length > 0) {
+                tree = _target.getElementsByClassName("bbWrapper")[0].childNodes[0].childNodes;
+            } else {
+                tree = _target.getElementsByClassName("bbWrapper")[0].childNodes
+            }
+            for (var _mesElem of tree) {
+                // Insert single text
+                if (_mesElem.nodeName == "#text") {
+                    _result += _mesElem.textContent
+                // Make quote as spoiler
+                } else if (_mesElem.classList.contains("bbCodeBlock--quote")) {
+                   extractSpolerContent(_mesElem)
+                // Make spoiler
+                } else if (_mesElem.classList.contains("bbCodeSpoiler")){
+                    extractSpolerContent(_mesElem)
+                // Insert message element as HTML Tag
+                } else {
+                    _result += _mesElem.outerHTML
                 }
             }
             _result += "[/quote]<br>"
-            console.log(_result)
+            //console.log(_result)
             insert_text(_result)
             switchContext(false)
         }
@@ -680,8 +718,10 @@
               switchContext(false);
             }
             return false;
+
         }
-    }, 1700)
+    }, 5000)
+
 
     // Your code here...
 })();
