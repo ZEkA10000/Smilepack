@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         redlightponyville smile plugin
 // @namespace    http://tampermonkey.net/
-// @version      0.3.9
+// @version      0.3.10
 // @description  Make your chatting better! (Recommend screen size: 1920x1080 (Full HD))
 // @author       Enigan aka ZEkA10000
 // @match        https://www.redlightponyville.com/forums/*
@@ -379,18 +379,19 @@
                     switchContext(false)
 				}]},
             {
-                "Batbot":     ["bat",     "Send lewd image with bats"],                "Birdbot":    ["feather", "Send lewd image with birds/griffons/hippogriffs"],
-                "Bondagebot": ["bondage", "Send lewd image with bondages"],            "Botbot":     ["bot",     "Even robots able to have sex"],
-                "Bugbot":     ["bug",     "Send lewd image with changelings"],         "Bunbot":     ["bun",     "Send lewd image with bunnies"],
-                "Clopbot":    ["clop",    "Send some lewd image"],                     "Frotbot":    ["frot",    "Send lewd image with touching cocks"],
-                "Futabot":    ["futa",    "Send lewd image with futa"],                "Gaybot":     ["gay",     "Send lewd image with gays"],
-                "Kinkbot":    ["rnd",     "Send lewd image with kinks"],               "Kirinbot":   ["kirin",   "Send lewd image with kirins"],
-                "Lesbot":     ["les",     "Send lewd image with lesbians"],            "Lolibot":    ["loli",    "Send lewd(?) image with lolis"],
-                "OCbot":      ["users",   "Send lewd image with OC"],                  "Papi":       ["feather", "Send lewd image with harpy"],
-                "Pinupbot":   ["waifu",   "Send something lewd from RLPV Collection"], "Sockbot":    ["socks",   "Send lewd image with socks"],
-                "Thiccbot":   ["waifu",   "Extra large and extra lewd!"],              "Watbot":     ["rnd",     "Send something stange"],
-                "Yiffbot":    ["yiff",    "Send lewd image with furries"],
-                "Random":     ["random",  "Send random lewd image", function() {
+                "Batbot":     ["bat",         "Send lewd image with bats"],                "Birdbot":  ["feather", "Send lewd image with birds/griffons/hippogriffs"],
+                "Bondagebot": ["bondage",     "Send lewd image with bondages"],            "Botbot":   ["bot",     "Even robots able to have sex"],
+                "Bugbot":     ["bug",         "Send lewd image with changelings"],         "Bunbot":   ["bun",     "Send lewd image with bunnies"],
+                "Clopbot":    ["clop",        "Send some lewd image"],                     "DeerBot":  ["deer",    "Send some lewd deers"],                     
+				"Frotbot":    ["frot",        "Send lewd image with touching cocks"],      "Futabot":  ["futa",    "Send lewd image with futa"],                
+				"Gaybot":     ["gay",         "Send lewd image with gays"],                "Kinkbot":  ["rnd",     "Send lewd image with kinks"],               
+				"Kirinbot":   ["kirin",       "Send lewd image with kirins"],              "Lesbot":   ["les",     "Send lewd image with lesbians"],
+				"Lolibot":    ["loli",        "Send lewd(?) image with lolis"],            "OCbot":    ["users",   "Send lewd image with OC"],
+				"Papi":       ["feather",     "Send lewd image with harpy"],               "Pinupbot": ["waifu",   "Send something lewd from RLPV Collection"], 
+				"Sockbot":    ["socks",       "Send lewd image with socks"],               "Thiccbot": ["waifu",   "Extra large and extra lewd!"],              
+				"Trapbot":    ["exclamation", "It's a trap!"],                             "Watbot":   ["rnd",     "Send something stange"],
+                "Yiffbot":    ["yiff",        "Send lewd image with furries"],
+                "Random":     ["random",      "Send random lewd image", function() {
                     let _obj = null
                     while (true) {
 					    _obj = $(".z_bot_field")[2].children[parseInt(Math.random() * ($(".z_bot_field")[2].children.length-1))]
