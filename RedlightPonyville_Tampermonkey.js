@@ -59,12 +59,14 @@
     #MessageContextMenu a[disabled] { color: #333; text-decoration:line-through }
     #MessageContextMenu a:hover { background:#373A40 }
     #reactContextMenuLike { color:indianred }
-    #reactContextMenuQuote, #reactContextMenuCompactQuote { color:#84653d }
+    #reactContextMenuQuote, #rMM3HajE69NqCYKEopPpk4x2PWxn4bA1ze { color:#84653d }
     #reactContextMenuLink { color:#408e7d }
     #reactContextMenuEdit { color:#15873F }
     #reactContextMenuReport { color:#dcda54 }
-    #reactContextMenuCompactWhisperQuote, #reactContextMenuWhisper { color: #77e }
+    #rMM3HajE69NqCYKEopPpk4x2PWxn4bA1ze, #reactContextMenuWhisper { color: #77e }
     #MessageContextMenu { position: fixed; background-color: #1B1B1Bf8;  font-size: 14px; font-weight:bold; border-right: 2px #222 solid; border-left: 2px #454545 solid; z-index: 3; transition: 0.1s; overflow: hidden; transition-property:height, padding, border; }
+    .emoji_in_mmenu, .emoji_in_menu, .botName { background: transparent; transition:0.1s; }
+    .emoji_in_mmenu:hover, .emoji_in_menu:hover, .botName:hover { background: #373A40; }
     `
     document.body.appendChild(script)
 
@@ -84,9 +86,9 @@
     _MessageActionMenu.innerHTML = `
         <a id="reactContextMenuLike" data-xf-click="siropu-chat-like"><i class="fa--xf far fa-thumbs-up" aria-hidden="true"></i>&nbsp;Like</a>
         <a id="reactContextMenuQuote" data-xf-click="siropu-chat-quote"><i class="fa--xf far fa-quote-right" aria-hidden="true"></i>&nbsp;Quote</a>
-        <a id="reactContextMenuCompactQuote" data-xf-click="siropu-chat-quote"><i class="fa--xf far fa-quote-right" aria-hidden="true"></i>&nbsp;Compact quote</a>
+        <a id="rMM3HajE69NqCYKEopPpk4x2PWxn4bA1ze" data-xf-click="siropu-chat-quote"><i class="fa--xf far fa-quote-right" aria-hidden="true"></i>&nbsp;Compact quote</a>
         <a id="reactContextMenuWhisper" data-xf-click="siropu-chat-quote"><i class="fa--xf far fa-quote-right" aria-hidden="true"></i>&nbsp;Whisper</a>
-        <a id="reactContextMenuCompactWhisperQuote" data-xf-click="siropu-chat-quote"><i class="fa--xf far fa-quote-right" aria-hidden="true"></i>&nbsp;Whisper + Compact quote</a>
+        <a id="rMM3HajE69NqCYKEopPpk4x2PWxn4bA1ze" data-xf-click="siropu-chat-quote"><i class="fa--xf far fa-quote-right" aria-hidden="true"></i>&nbsp;Whisper + Compact quote</a>
         <a id="reactContextMenuLink" data-xf-click="overlay" data-cache="false"><i class="fa--xf far fa-link" aria-hidden="true"></i>&nbsp;Link</a>
         <a id="reactContextMenuReport" data-xf-click="overlay" data-cache="false"><i class="fa--xf far fa-flag" aria-hidden="true"></i>&nbsp;Report</a>
     `
@@ -131,46 +133,73 @@
 					</div>
 				</div>
 				<div class="offCanvasMenu-linkHolder ">
-					<div class="p-navEl__inner u-ripple rippleButton" id="z_plugin_nav_menu" style="font-size:14px; padding:8px 16px">
+					<div class="p-navEl__inner u-ripple rippleButton" id="z_plugin_nav_menu" style="font-size:14px; padding:8px 16px;">
 					</div>
 				</div>
 			`
 		} else {
 			$(".uix_sidebar--scroller")[0].innerHTML +=`
-				<ul class="uix_sidebarNavList">
+				<ul class="uix_sidebarNavList" id="z_plugin_nav_menu">
 					<li> <div class="p-navEl__inner u-ripple rippleButton" style="height:20px; padding:0 16px; text-decoration:underline; color:yellowgreen">▼ Plugin settings ▼</div> </li>
-					<li> <div class="p-navEl__inner u-ripple rippleButton" id="z_plugin_nav_menu" style="height:42px"></div> </li>
 				</ul>
 			`
 		}
-        var button = document.createElement("a")
-        button.setAttribute("class", "p-navEl-link")
-        button.setAttribute("id", "footerToggler")
-        button.setAttribute("data-nav-id", "FooterToggler")
-        button.setAttribute("data-title", "Hide Site Footer")
 
-        button.innerHTML = "<span>Toggle Footer </span><img src=\"https://derpicdn.net/img/view/2021/1/5/2524272.png\" title=\"Footer visible\" style=\"height:32px;width:32px; margin-left:10px\">"
+        function create_menu_button(_id, _contents, _function, _style="") {
+            var button = document.createElement("li")
+            button.innerHTML = `<div class="p-navEl__inner u-ripple rippleButton" id="${_id}Container"></div>`
+            $("#z_plugin_nav_menu")[0].appendChild(button)
 
-        button.onclick = function() {
-            //let footerON = "🦶🏻"
-            //let footerOFF = "🦶🏿"
-            let footer = document.getElementById("footer")
-            let button = document.getElementById("footerToggler")
-            if (footer.style.height != "0px") {
-                footer.style.height = "0px"
-                footer.style.overflow = "hidden"
-                button.innerHTML = "<span>Toggle Footer </span><img src=\"https://derpicdn.net/img/view/2018/10/11/1854112.png\" title=\"Footer hidden\" style=\"height:32px;width:32px; margin-left:10px\">"
-                button.setAttribute("data-title", "Show Site Footer")
-            } else {
-                footer.style.height = ""
-                footer.style.overflow = "inherit"
-                button.innerHTML = "<span>Toggle Footer </span><img src=\"https://derpicdn.net/img/view/2021/1/5/2524272.png\" title=\"Footer visible\" style=\"height:32px;width:32px; margin-left:10px\">"
-                button.setAttribute("data-title", "Hide Site Footer")
-            }
+            var buttonContents = document.createElement("a")
+            buttonContents.setAttribute("class", "p-navEl-link")
+            buttonContents.setAttribute("id", _id)
+            if (_style != "") buttonContents.setAttribute("style", _style)
+            buttonContents.innerHTML = _contents
+            buttonContents.onclick = _function
+            $("#"+_id+"Container")[0].appendChild(buttonContents)
         }
-        $("#z_plugin_nav_menu")[0].appendChild(button)
+
+        create_menu_button("footerToggler",
+                           "<span>Toggle Footer </span><img src=\"https://derpicdn.net/img/view/2021/1/5/2524272.png\" title=\"Footer visible\" style=\"height:32px;width:32px; margin-left:10px\">",
+                           function() {
+                               let footer = document.getElementById("footer")
+                               let button = document.getElementById("footerToggler")
+                               if (footer.style.height != "0px") {
+                                   footer.style.height = "0px"
+                                   footer.style.overflow = "hidden"
+                                   button.innerHTML = "<span>Toggle Footer </span><img src=\"https://derpicdn.net/img/view/2018/10/11/1854112.png\" title=\"Footer hidden\" style=\"height:32px;width:32px; margin-left:10px\">"
+                                   button.setAttribute("data-title", "Show Site Footer")
+                               } else {
+                                   footer.style.height = ""
+                                   footer.style.overflow = "inherit"
+                                   button.innerHTML = "<span>Toggle Footer </span><img src=\"https://derpicdn.net/img/view/2021/1/5/2524272.png\" title=\"Footer visible\" style=\"height:32px;width:32px; margin-left:10px\">"
+                                   button.setAttribute("data-title", "Hide Site Footer")
+                               }
+                           })
+        create_menu_button("profileToggler",
+                           "Compact Threads/PMs",
+                           function() {
+                               if ( $("#hiderInfoZ").length == 0) {
+                                   let style = document.createElement("style")
+                                   style.setAttribute("id", "hiderInfoZ")
+                                   style.innerHTML = " .message-userExtras, .message-signature { display: none; } "
+                                   document.body.appendChild(style);
+                                   $("#profileToggler")[0].style.textDecoration = "line-through !important;";
+                               } else {
+                                   $("#hiderInfoZ")[0].remove()
+                                   $("#profileToggler")[0].style.textDecoration = "none";
+                               }
+                           }, "line-height:14px;")
         // ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
         // FOOTER TOGGLER
+        // =============================================================================================================
+        // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
+        // / // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
+        // =============================================================================================================
+        // USER PROFILE TOGGLE
+        // v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v
+        // ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
+        // USER PROFILE TOGGLE
         // =============================================================================================================
         // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
         // / // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
@@ -405,6 +434,7 @@
             for (var c in _bot_menu_list[_bot_category]) {
                 let _bot_details = _bot_menu_list[_bot_category][c]
                 let _div = document.createElement("div")
+                _div.setAttribute("class", "botName");
                 _div.innerHTML = "<p><img style=\"display:inline-block\" src=\"https://raw.githubusercontent.com/ZEkA10000/Smilepack/main/icons/" + _bot_details[0] + ".png\">"+ c + "</p>"
                 if (c == "Random" || c == "BoopBot") {
                     _div.onclick = _bot_details[2]
@@ -532,7 +562,7 @@
             return { name: _name, color: _nickname_color }
         }
 
-        $("#reactContextMenuCompactQuote")[0].onclick = function(_event) {
+        $("#rMM3HajE69NqCYKEopPpk4x2PWxn4bA1ze")[0].onclick = function(_event) {
             let _target = $("li[data-id=" + _event.target.parentNode.getAttribute("data-id") + "]")[0]
             let _user_info = get_username(_target)
             let _nickname_color = _user_info.color
@@ -602,7 +632,7 @@
             let _name = _user_info.name
             let _text = "/whisper ["+_name+"] "
             insert_text(_text)
-            if (add_quote) $("#reactContextMenuCompactQuote")[0].click()
+            if (add_quote) $("#rMM3HajE69NqCYKEopPpk4x2PWxn4bA1ze")[0].click()
         }
 
         document.body.addEventListener("click", function(_event) {
@@ -693,7 +723,7 @@
                             $("#MessageContextMenu a")[el_id].innerHTML = "<i class=\"fa--xf far fa-edit\" aria-hidden=\"true\"></i>&nbsp;Edit"
 							$("#MessageContextMenu a")[el_id].id = "reactContextMenuEdit"
                             $("#MessageContextMenu a")[el_id].removeAttribute("disabled")
-							$("reactContextMenuCompactWhisperQuote")[0].addAttribute("disabled", "")
+							$("rMM3HajE69NqCYKEopPpk4x2PWxn4bA1ze")[0].addAttribute("disabled", "")
 							$("reactContextMenuWhisper")[0].addAttribute("disabled", "")
                             $("#MessageContextMenu a")[el_id].onclick = function() { _target.getElementsByClassName("siropuChatMessageActions")[0].getElementsByTagName("a")[2].click(); switchContext(false)}
                             break;
@@ -703,7 +733,7 @@
                             $("#MessageContextMenu a")[3].removeAttribute("disabled")
                             $("#MessageContextMenu a")[4].removeAttribute("disabled")
                             $("#reactContextMenuWhisper")[0].onclick = function(_event) { insert_whisper(_event, false) }
-                            $("#reactContextMenuCompactWhisperQuote")[0].onclick = function(_event) { insert_whisper(_event, true) }
+                            $("#rMM3HajE69NqCYKEopPpk4x2PWxn4bA1ze")[0].onclick = function(_event) { insert_whisper(_event, true) }
                             break;
                         case "Link":
                             $("#MessageContextMenu a")[el_id].setAttribute("href", _baseUri + "/link")
@@ -721,7 +751,7 @@
             return false;
 
         }
-    }, 5000)
+    }, 3000)
 
 
     // Your code here...
